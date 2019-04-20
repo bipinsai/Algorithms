@@ -1,4 +1,25 @@
 #include <bits/stdc++.h>
+void printLevelOrder(node* root)  
+{  
+    int h = height(root);  
+    int i;  
+    for (i = 1; i <= h; i++)  
+        printGivenLevel(root, i);  
+}  
+  
+/* Print nodes at a given level */
+void printGivenLevel(node* root, int level)  
+{  
+    if (root == NULL)  
+        return;  
+    if (level == 1)  
+        cout << root->data << " ";  
+    else if (level > 1)  
+    {  
+        printGivenLevel(root->left, level-1);  
+        printGivenLevel(root->right, level-1);  
+    }  
+}
 /* Given a binary tree, print its nodes according to the 
 "bottom-up" postorder traversal. */
 void printPostorder(struct Node* node) 
