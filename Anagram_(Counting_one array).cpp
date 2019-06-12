@@ -1,30 +1,54 @@
- // We can increment the value in count array for characters in str1 and 
- // decrement for characters in str2. Finally, if all count values are 0, 
- // then the two strings are anagram of each other. 3) Compare count arrays. 
- // If both count arrays are same, then return true.
+#include <bits/stdc++.h>
+using namespace std;
+string s;
+int gcd(int a ,int b)
+{
+    if (a == 0 || b == 0)  
+        return 0;  
+    if (a == b)  
+        return a;  
+    if (a > b)  
+        return gcd(a-b, b);  
+    return gcd(a, b-a);  
+}
+int lcm(int a, int b)  
+{  
+    return (a*b)/gcd(a, b);  
+}  
+int main()
+{
+    int n;
+    cin>>n;
+    string s[n];
+    for(int i=0;i<n;i++)
+        cin>>s[i];
+    int alpha[26];
+    memset(alpha,0,sizeof(alpha));
+    for(int i=0;i<n;i++)
+    {
+        alpha[s[i][0]-97]++;
+    }
+    int no1=0;
+    int no2=0;
+    for(int i=0;i<26;i++)
+        cout<<alpha[i]<<"  ";
+    //for(int i=0;)
+    for(int i=0;i<26;i++)
+    {
+        if(alpha[i] == 0)
+            continue;
+        else if(alpha[i] % 2 ==0)
+        {
+            no1+=((alpha[i]/2)*((alpha[i]/2)-1)/2);
+            no2+=no1;
+        }
+        else
+        {
+            no1+=(((alpha[i]/2)+1)*(alpha[i]/2))/2;
+           // cout<<no1<<" ldljb"<<endl;
+            no2+=((alpha[i]/2)*((alpha[i]/2)-1)/2);
+        }
+    }
+    cout<<no1+no2;
 
-//O(n) complexity
-bool areAnagram(char* str1, char* str2) 
-{ 
-    // Create a count array and initialize all values as 0 
-    int count[NO_OF_CHARS] = { 0 }; 
-    int i; 
-
-    // For each character in input strings, increment count in 
-    // the corresponding count array 
-    for (i = 0; str1[i] && str2[i]; i++) { 
-        count[str1[i]]++; 
-        count[str2[i]]--; 
-    } 
-
-    // If both strings are of different length. Removing this condition 
-    // will make the program fail for strings like "aaca" and "aca" 
-    if (str1[i] || str2[i]) 
-        return false; 
-
-    // See if there is any non-zero value in count array 
-    for (i = 0; i < NO_OF_CHARS; i++) 
-        if (count[i]) 
-            return false; 
-    return true; 
-} 
+}
